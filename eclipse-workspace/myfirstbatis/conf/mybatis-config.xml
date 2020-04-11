@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- import propertities -->
+<properties resource="dbconfig.properties"></properties> 
+<!-- setting
+<settings>
+	<setting name="mapUnderscoreToCamelCase" value="true"></setting>
+</settings>
+ -->
+<!-- Nickname 
+<typeAliases>
+	<package name="kim.spe.mybatis.bean"/>
+</typeAliases>
+-->
+
+<!-- development environments -->
+<environments default="dev">
+  <environment id="dev">
+  	<!-- type:JDBC/MANAGED -->
+    <transactionManager type="JDBC"/>
+    <dataSource type="POOLED">
+      <property name="driver" value="${jdbc.driver}"/>
+      <property name="url" value="${jdbc.url}"/>
+      <property name="username" value="${jdbc.username}"/>
+      <property name="password" value="${jdbc.password}"/>
+    </dataSource>
+  </environment>
+</environments>
+
+<!-- mutiDatabase setNickname
+<databaseIdProvider type="DB_VENDOR">
+	<property name="MySQL" value="mysql"/>
+</databaseIdProvider>
+-->
+<mappers>
+  <mapper resource="EmployeeMapperPlus.xml"/>
+  <mapper resource="DepartmentMapper.xml" />
+</mappers>
+</configuration>

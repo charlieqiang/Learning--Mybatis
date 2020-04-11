@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kim.spe.mybatis.dao.EmployeeMapperPlus">
+  <resultMap type="kim.spe.mybatis.bean.Employee" id="MyEmpBean">
+  	<id column="id" property="id"/>
+	  	<result column="id" property="id"/>
+	  	<result column="last_name" property="last_name"/>
+	  	<result column="gender" property="gender"/>
+	  	<result column="email" property="email"/>
+	  	<association property="dept" javaType="kim.spe.mybatis.bean.Department">
+		  	<id column="did" property="id"/>
+		  		<result column="did" property="id"/>
+	  			<result column="dept_name" property="departmentName"/>
+	  	</association>
+  </resultMap>
+  <resultMap type="kim.spe.mybatis.bean.Employee" id="MyEmp">
+  	<id column="id" property="id"/>
+  	<result column="email" property="last_name"/>
+  	<result column="last_name" property="email"/>
+  	<result column="gender" property="gender"/>
+  </resultMap>
+  <resultMap type="kim.spe.mybatis.bean.Employee" id="MyDep">
+  	<id column="id" property="id"/>
+	  	<result column="id" property="id"/>
+	  	<result column="last_name" property="last_name"/>
+	  	<result column="gender" property="gender"/>
+	  	<result column="email" property="email"/>
+	  	<result column="did" property="dept.id"/>
+  		<result column="dept_name" property="dept.departmentName"/>
+  </resultMap>
+  <resultMap type="kim.spe.mybatis.bean.Employee" id="MyEmpByStep">
+  	<id column="id" property="id"/>
+  	<result column="email" property="last_name"/>
+  	<result column="last_name" property="email"/>
+  	<result column="gender" property="gender"/>
+  	<association property="dept" 
+	  	select="kim.spe.mybatis.dao.DepartmentMapper.getDeptById" 
+	  	column="d_id">
+	</association>
+  </resultMap>
+  <select id="getEmpById" resultMap="MyEmp">
+    select * from tbl_employee where id = #{id}
+  </select>
+  <select id="getEmpAndDept" resultMap="MyEmpBean">
+    SELECT e.id id,e.last_name last_name,
+    e.gender gender,e.email email,d.dept_name dept_name from tbl_employee e,
+    tbl_dept d where e.d_id=d.id and e.id=#{id};
+  </select>
+  <select id="getEmpByIdStep" resultMap="MyEmpByStep">
+    select * from tbl_employee where id = #{id};
+  </select>
+</mapper>
