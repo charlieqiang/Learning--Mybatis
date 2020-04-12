@@ -15,12 +15,14 @@
 	  			<result column="dept_name" property="departmentName"/>
 	  	</association>
   </resultMap>
+  
   <resultMap type="kim.spe.mybatis.bean.Employee" id="MyEmp">
   	<id column="id" property="id"/>
   	<result column="email" property="last_name"/>
   	<result column="last_name" property="email"/>
   	<result column="gender" property="gender"/>
   </resultMap>
+  
   <resultMap type="kim.spe.mybatis.bean.Employee" id="MyDep">
   	<id column="id" property="id"/>
 	  	<result column="id" property="id"/>
@@ -30,6 +32,7 @@
 	  	<result column="did" property="dept.id"/>
   		<result column="dept_name" property="dept.departmentName"/>
   </resultMap>
+  
   <resultMap type="kim.spe.mybatis.bean.Employee" id="MyEmpByStep">
   	<id column="id" property="id"/>
   	<result column="email" property="last_name"/>
@@ -40,6 +43,32 @@
 	  	column="d_id">
 	</association>
   </resultMap>
+  
+  <resultMap type="kim.spe.mybatis.bean.Employee" id="MyEmpDis">
+  	<id column="id" property="id"/>
+  	<result column="email" property="email"/>
+  	<result column="last_name" property="last_name"/>
+  	<result column="gender" property="gender"/>
+  	<discriminator javaType="string" column="gender">
+  		<!-- girl -->
+  		<case value="0" resultType="kim.spe.mybatis.bean.Employee">
+  		  	<association property="dept" 
+			  	select="kim.spe.mybatis.dao.DepartmentMapper.getDeptById" 
+			  	column="d_id">
+			</association>
+  		</case>
+  		<!-- boy -->
+  		<case value="1" resultType="kim.spe.mybatis.bean.Employee">
+	  		<id column="id" property="id"/>
+		  	<result column="email" property="last_name"/>
+		  	<result column="last_name" property="email"/>
+		  	<result column="gender" property="gender"/>
+  		</case>
+  		
+  	</discriminator>
+
+  </resultMap>
+  
   <select id="getEmpById" resultMap="MyEmp">
     select * from tbl_employee where id = #{id}
   </select>
@@ -48,7 +77,11 @@
     e.gender gender,e.email email,d.dept_name dept_name from tbl_employee e,
     tbl_dept d where e.d_id=d.id and e.id=#{id};
   </select>
-  <select id="getEmpByIdStep" resultMap="MyEmpByStep">
+  <select id="getEmpByIdStep" resultMap="MyEmpDis">
     select * from tbl_employee where id = #{id};
+  </select>
+  
+  <select id="getEmpsByDeptId" resultType="kim.spe.mybatis.bean.Employee">
+    select * from tbl_employee where d_id = #{deptId};
   </select>
 </mapper>

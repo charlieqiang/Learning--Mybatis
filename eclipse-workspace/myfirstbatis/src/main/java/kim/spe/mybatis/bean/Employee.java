@@ -1,8 +1,15 @@
 package kim.spe.mybatis.bean;
 
+import java.io.Serializable;
+
 import org.apache.ibatis.type.Alias;
 
-public class Employee {
+public class Employee implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String last_name;
 	private String email;
@@ -14,10 +21,19 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Employee(Integer id, String last_name, String email, String gender, Department dept) {
+		super();
+		this.id = id;
+		this.last_name = last_name;
+		this.email = email;
+		this.gender = gender;
+		this.dept = dept;
+	}
+	
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", last_name=" + last_name + ", email=" + email + ", gender=" + gender + ", dept="
-				+ dept.getDepartmentName() + "]";
+				+ dept+"]";
 	}
 	
 	public Department getDept() {

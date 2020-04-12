@@ -5,17 +5,22 @@
 <configuration>
 <!-- import propertities -->
 <properties resource="dbconfig.properties"></properties> 
-<!-- setting
+<!-- setting -->
 <settings>
-	<setting name="mapUnderscoreToCamelCase" value="true"></setting>
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+	<setting name="jdbcTypeForNull" value="NULL"/>
+	<setting name="lazyLoadingEnabled" value="true"/>
+	<setting name="aggressiveLazyLoading" value="false"/>
+	<setting name="cacheEnabled" value="true"/>
 </settings>
- -->
-<!-- Nickname 
+
+<!-- Nickname
+
 <typeAliases>
 	<package name="kim.spe.mybatis.bean"/>
 </typeAliases>
--->
 
+ -->
 <!-- development environments -->
 <environments default="dev">
   <environment id="dev">
@@ -36,7 +41,9 @@
 </databaseIdProvider>
 -->
 <mappers>
+  <mapper resource="EmployMapper.xml"/>
   <mapper resource="EmployeeMapperPlus.xml"/>
   <mapper resource="DepartmentMapper.xml" />
+  <mapper resource="EmployeeMapperDynamicSQL.xml" />
 </mappers>
 </configuration>

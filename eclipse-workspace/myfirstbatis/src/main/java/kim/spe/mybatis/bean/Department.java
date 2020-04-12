@@ -1,9 +1,28 @@
 package kim.spe.mybatis.bean;
 
-public class Department {
+import java.io.Serializable;
+import java.util.List;
+
+public class Department implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String departmentName;
+	private List<Employee> emps;
 	
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", departmentName=" + departmentName + ", emps=" + emps + "]";
+	}
+	
+	public List<Employee> getEmps() {
+		return emps;
+	}
+	public void setEmps(List<Employee> emps) {
+		this.emps = emps;
+	}
 	public Integer getId() {
 		return id;
 	}
